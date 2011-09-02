@@ -1,10 +1,13 @@
 <?php
+
+global $wpTPCSV;
 if( isset($_POST['wptp_cron_opt']) ){
  update_option('wptp_cron_opt', $_POST['wptp_cron_opt'] );
  update_option('wptp_cron_mails', $_POST['wptp_cron_mails']);
 
-global $wpTPCSV;
 $wpTPCSV -> initialize_cron();
+//var_dump( $wpTPCSV -> send_mail('sabirmostofa@gmail.com'));
+
  
 }
 
@@ -28,7 +31,7 @@ $wpTPCSV -> initialize_cron();
 	<form action = '' method='post'>
 		Insert Mail address(If more than one separate by comma):
 		<br/>
-		<input type="text" name="wptp_cron_mails"/>
+		<input value="<?php echo get_option('wptp_cron_mails') ?>" type="text" name="wptp_cron_mails"/>
 		<select name='wptp_cron_opt'>
 			<option>None</option>	
 			<option <?php if( get_option('wptp_cron_opt') == 'Every 24 Hours') echo 'selected="selected"'  ; ?>>Every 24 Hours</option>
@@ -48,7 +51,7 @@ $wpTPCSV -> initialize_cron();
 	
 <?php 
 
-
+//var_dump( $wpTPCSV -> send_mail('ss') );
 
 
  ?>

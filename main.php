@@ -84,7 +84,32 @@ class wpTrackbackCSV{
 	}
 	
 	function send_mail($mail){
+		$site=home_url();
+		$plugin_dir = dirname(__FILE__);
+		if(!is_dir($plugin_dir.'/uploads'))mkdir( $plugin_dir.'/uploads' );
+		$links = array();
+		$vals = array('all-links-csv'=>'wptp-all',
+		              'published-links-csv'=>'wptp-pub',
+		              'all-links-text'=>'wptp-all-text',
+		              'published-links-text' => 'wptp-pub-text'
+		              );
+		foreach($vals as $key=>$val){
+			$vals[$key] = $site.'/?wptpcsv='.$val ;
+			$s = 'text';
+			if(stripos($key,'csv'))
+				$s = 'csv';
+			
+			$content = file_get_contents($vals[$key]);
+			$file = $plugin_dir.'/uploads/'.$key.'.'.$s ;
+			
+			
+			file_put_contents($file, $content);
+			$links[] = $file;
+		}
+	
 		
+		return wp_mail($mail, 'Tracback Extractor Files','All csv and text files' , '', $links);		
+	
 		
 	}
 	

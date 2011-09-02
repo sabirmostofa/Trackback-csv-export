@@ -1,7 +1,7 @@
 <?php
 if( isset($_POST['wptp_cron_opt']) ){
  update_option('wptp_cron_opt', $_POST['wptp_cron_opt'] );
- var_dump( get_option('wptp_cron_opt') );
+ update_option('wptp_cron_mails', $_POST['wptp_cron_mails']);
 
 global $wpTPCSV;
 $wpTPCSV -> initialize_cron();
@@ -24,7 +24,11 @@ $wpTPCSV -> initialize_cron();
 		<a href="?wptpcsv=wptp-pub-text" target="_blank" class='button-primary wptp-csvs' id='wptp-pub-text'>Export Published as .txt</a>
 	
 	<h3>Automatic mailing feature</h3>
+
 	<form action = '' method='post'>
+		Insert Mail address(If more than one separate by comma):
+		<br/>
+		<input type="text" name="wptp_cron_mails"/>
 		<select name='wptp_cron_opt'>
 			<option>None</option>	
 			<option <?php if( get_option('wptp_cron_opt') == 'Every 24 Hours') echo 'selected="selected"'  ; ?>>Every 24 Hours</option>

@@ -75,7 +75,25 @@ class wpTrackbackCSV{
 	}
 	
 	function create_cron(){
+		if(	$mails = $this -> get_mails() ):
+			foreach($mails as $mail):
+				$this -> send_mail($mail);
+			endforeach;
+		endif;
+				
+	}
+	
+	function send_mail($mail){
 		
+		
+	}
+	
+	function get_mails(){
+		if($str = get_option('wptp_cron_mails')){
+			$ar = explode(',', trim($str,',') ) ;
+			return $ar;
+			
+			}	
 	}
 		
 		function add_widget(){

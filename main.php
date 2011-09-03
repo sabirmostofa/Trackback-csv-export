@@ -86,6 +86,7 @@ class wpTrackbackCSV{
 	function send_mail($mail){
 		$site=home_url();
 		$plugin_dir = dirname(__FILE__);
+		$file_type = get_option('wptp_cron_types');
 		if(!is_dir($plugin_dir.'/uploads'))mkdir( $plugin_dir.'/uploads' );
 		$links = array();
 		$vals = array('all-links-csv'=>'wptp-all',
@@ -94,6 +95,9 @@ class wpTrackbackCSV{
 		              'published-links-text' => 'wptp-pub-text'
 		              );
 		foreach($vals as $key=>$val){
+			if($file_type != 'Export all(text and csv)')
+				if($key != $file_type )continue;
+
 			$vals[$key] = $site.'/?wptpcsv='.$val ;
 			$s = 'text';
 			if(stripos($key,'csv'))

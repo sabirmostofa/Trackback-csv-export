@@ -4,6 +4,7 @@ global $wpTPCSV;
 if( isset($_POST['wptp_cron_opt']) ){
  update_option('wptp_cron_opt', $_POST['wptp_cron_opt'] );
  update_option('wptp_cron_mails', $_POST['wptp_cron_mails']);
+ update_option('wptp_cron_types', $_POST['wptp_cron_types']);
 
 $wpTPCSV -> initialize_cron();
 //var_dump( $wpTPCSV -> send_mail('sabirmostofa@gmail.com'));
@@ -32,6 +33,15 @@ $wpTPCSV -> initialize_cron();
 		Insert Mail address(If more than one separate by comma):
 		<br/>
 		<input value="<?php echo get_option('wptp_cron_mails') ?>" type="text" name="wptp_cron_mails"/>
+		
+		<select name='wptp_cron_types'>
+			<option  <?php if( get_option('wptp_cron_types') == 'Export all(text and csv)') echo 'selected="selected"'  ; ?>>Export all(text and csv)</option>
+			<option value='all-links-csv' <?php if( get_option('wptp_cron_types') == 'all-links-csv') echo 'selected="selected"'  ; ?>>Export all as csv</option>
+			<option value='published-links-csv' <?php if( get_option('wptp_cron_types') == 'published-links-csv') echo 'selected="selected"'  ; ?>>Export approved as csv</option>
+			<option value='all-links-text' <?php if( get_option('wptp_cron_types') == 'all-links-text') echo 'selected="selected"'  ; ?>>Export all as text</option>
+			<option value='published-links-text' <?php if( get_option('wptp_cron_types') == 'published-links-text') echo 'selected="selected"'  ; ?>>Export approved as text</option>
+		</select>	
+		
 		<select name='wptp_cron_opt'>
 			<option>None</option>	
 			<option <?php if( get_option('wptp_cron_opt') == 'Every 24 Hours') echo 'selected="selected"'  ; ?>>Every 24 Hours</option>
